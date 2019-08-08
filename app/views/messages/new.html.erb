@@ -5,7 +5,7 @@
 
 <body>
 <div class="container">
-  <%= form_for @message do |f| %>
+  <%= form_for @message,:html => {:class => "message_form"} do |f| %>
     <div class = "nice-wrap_title">
       <%= f.label :title, '【タイトル】',class: "nice-label_title"%>
       <%= f.text_field :title, :size=>"60",class: "nice-textbox_title",id: 'title'%>
@@ -17,24 +17,13 @@
     </div><br><br><br><br><br><br><br><br><br>
     <div>
       <%= f.label :images,"添付" %>
-      <%= f.file_field :images, class: 'btn image_form', multiple: true %>
+      <%= f.file_field :images, class: 'btn image_form message_image', multiple: true %>
+      <!--- preview用 --->
+      <ul class='image_preview_container'>
+      </ul>
+      
       <p><span id='count'></span>/5000文字まで</p>
-      <%= f.submit '展開', class: 'btn'%>
-    
-    <div class='img_prev'>
-      <% if @message.images.attached? %>
-        <% @message.images.each do |image| %>
-          <% if image.filename.to_s =~ /\.jpeg$|\.jpg$|\.gif$|\.png$|\.bmp$/ %>
-            <%= image_tag(image , height: '20')%>
-          <% elsif image.filename.to_s  =~ /\.mp4$|\.wmv$|\.avi$|\.mov$/  %>
-            <%= image_tag(image.preview(resize: "100x100>")) %>
-          <%else%>
-            <%= image_tag("file_icon.png", height: '20') %>
-          <%end%>
-          <%= image.filename %>
-        <% end %>
-      <% end %>
-    </div>
+      <%= f.submit '展開', class: 'btn message_submit'%>
     </div>
   <%end%>
 </div>

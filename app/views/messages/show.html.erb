@@ -52,6 +52,14 @@
     <%='添付ﾌｧｲﾙ:' %>
     <% if @message.images.attached? %>
       <% @message.images.each do |image| %>
+        <%=link_to image_tag(image , height: '20'), (rails_blob_path(image, disposition: "attachment"))%>
+        <%= image.name %>
+      <% end %>
+    <% end %>
+    
+    <%if false %>
+    <% if @message.images.attached? %>
+      <% @message.images.each do |image| %>
         <% if image.filename.to_s =~ /\.jpeg$|\.jpg$|\.gif$|\.png$|\.bmp$/ %>
           <%=link_to image_tag(image , height: '20'), (rails_blob_path(image, disposition: "attachment"))%>
         <% elsif image.filename.to_s  =~ /\.mp4$|\.wmv$|\.avi$|\.mov$/  %>
@@ -62,6 +70,7 @@
         <%= image.filename %>
       <% end %>
     <% end %>
+    <%end%>
   </div>
 <div>
 

@@ -23,10 +23,10 @@ development:
 test:
   <<: *default
   database: test_db
-  username: root
-  password: root
-  #username: <%= ENV['DATEBASE_USER_NAME']%>
-  #password: <%= ENV['DATEBASE_USER_PASS']%>
+  #username: root
+  #password: root
+  username: <%= ENV['DATEBASE_USER_NAME']%>
+  password: <%= ENV['DATEBASE_USER_PASS']%>
   host: 127.0.0.1
 
 production:

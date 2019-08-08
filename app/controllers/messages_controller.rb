@@ -12,7 +12,16 @@ class MessagesController < ApplicationController
   end
 
   def create
-    @message = Message.new(message_params)
+    #binding.pry
+    if params.require(:new_images).require(:images)[0] != "0"
+      @message = Message.new(image_params)
+      @message.update(message_params)
+      #@item.name = params.require(:item).permit(:name)["name"]
+      #@item.description =  params.require(:item).permit(:description)["description"]
+    else
+      @message = Message.new(message_params)
+    end
+
     # @messageのuser_idはサインイン中のuserのid
     @message.user_id = current_user.id
 
@@ -65,6 +74,10 @@ class MessagesController < ApplicationController
   private # images: [] => ﾌｧｲﾙ複数収納
 
   def message_params
-    params.require(:message).permit(:title, :body, images: [])
+    params.require(:message).permit(:title, :body)
+  end
+
+  def image_params #ajaxで送信した添付のstrong parameter
+    params.require(:new_images).permit(images: [])
   end
 end
